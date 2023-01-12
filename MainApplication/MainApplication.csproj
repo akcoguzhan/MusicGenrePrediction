@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <StartupObject>MainApplication.App</StartupObject>
+    <ApplicationIcon>resources\appicon.ico</ApplicationIcon>
+    <SignAssembly>False</SignAssembly>
+    <Title>Müzik Türü Sınıflandırma</Title>
+    <AssemblyName>Müzik Türü Sınıflandırma</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\folder.png" />
+    <None Remove="resources\loading.gif" />
+    <None Remove="resources\loading2.gif" />
+    <None Remove="resources\pause.png" />
+    <None Remove="resources\play.png" />
+    <None Remove="resources\stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resources\appicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Managers\Managers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resources\folder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\loading2.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\stop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,170 @@
+﻿<UserControl x:Class="MainApplication.UserControls.AudioPlayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             x:Name="CodeBehind"
+             MinWidth="300">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        CanExecute="CanOpenExecute"
+                        Executed="OpenExecute" />
+        <CommandBinding Command="MediaCommands.Play"
+                        CanExecute="CanPlayExecute"
+                        Executed="PlayExecute" />
+        <CommandBinding Command="MediaCommands.Pause"
+                        CanExecute="CanPauseExecute"
+                        Executed="PauseExecute" />
+        <CommandBinding Command="MediaCommands.Stop"
+                        CanExecute="CanStopExecute"
+                        Executed="StopExecute" />
+    </UserControl.CommandBindings>
+    <Grid MouseWheel="Grid_MouseWheel"
+          Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ToolBarPanel Grid.Row="0"
+                      HorizontalAlignment="Center"
+                      ClipToBounds="True">
+            <ToolBar Background="Black"
+                     ToolBarTray.IsLocked="True"
+                     ToolBar.OverflowMode="Never"
+                     Margin="-5,-2,-13,0"
+                     Padding="3,0,0,0">
+                <Button Command="ApplicationCommands.Open">
+                    <Image Height="48"
+                           Width="48">
+                        <Image.Source>
+                            <BitmapImage UriSource="../resources/folder.png"
+                                         DecodePixelWidth="100"
+                                         DecodePixelHeight="100"
+                                         RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Separator Background="White"
+                           Width="3" />
+                <Button Command="MediaCommands.Play">
+                    <Image Height="48"
+                           Width="48">
+                        <Image.Source>
+                            <BitmapImage UriSource="../resources/play.png"
+                                         DecodePixelWidth="100"
+                                         DecodePixelHeight="100"
+                                         RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Button Command="MediaCommands.Pause">
+                    <Image Height="48"
+                           Width="48">
+                        <Image.Source>
+                            <BitmapImage UriSource="../resources/pause.png"
+                                         DecodePixelWidth="100"
+                                         DecodePixelHeight="100"
+                                         RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Button Command="MediaCommands.Stop">
+                    <Image Height="48"
+                           Width="48">
+                        <Image.Source>
+                            <BitmapImage UriSource="../resources/stop.png"
+                                         DecodePixelWidth="100"
+                                         DecodePixelHeight="100"
+                                         RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Label FontSize="32"
+                       FontFamily="Georgia"
+                       Foreground="White"
+                       FontWeight="Bold"
+                       Margin="10,0,10,0">SES OYNATICI</Label>
+            </ToolBar>
+        </ToolBarPanel>
+        <MediaElement Grid.Row="1"
+                      Name="mediaPlayer"
+                      LoadedBehavior="Manual"
+                      Volume="1"
+                      Stretch="None"
+                      Height="0"
+                      Visibility="Collapsed" />
+        <Grid Grid.Row="2"
+              Background="Black"
+              Width="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="txtCurrentOperation"
+                       FontSize="16"
+                       MaxWidth="480"
+                       MinWidth="480"
+                       TextAlignment="Center"
+                       FontWeight="Thin"
+                       Foreground="White"
+                       Text="{Binding ElementName=CodeBehind, Path=CurrentOperation, Mode=TwoWay}"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+            <Image gif:ImageBehavior.AnimatedSource="../resources/loading2.gif"
+                   Name="loadingGif"
+                   Visibility="Collapsed"
+                   Height="50"
+                   Width="50"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Grid.Row="0" />
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StatusBar Grid.Column="0">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem Grid.Column="0"
+                               Background="Black"
+                               Foreground="White">
+                    <TextBlock FontSize="32"
+                               Name="lblProgressStatus">00:00:00</TextBlock>
+
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="1"
+                               HorizontalContentAlignment="Stretch"
+                               Background="black">
+                    <Slider Name="sliderProgress"
+                            Thumb.DragStarted="Slider_DragStarted"
+                            Thumb.DragCompleted="Slider_DragEnd"
+                            ValueChanged="Slider_ValueChanged" />
+                </StatusBarItem>
+            </StatusBar>
+            <TextBlock Foreground="Red"
+                       Grid.Column="1"
+                       Name="lblDurationSeconds"
+
+                       VerticalAlignment="Center"
+                       FontSize="14">0</TextBlock>
+        </Grid>
+        <!--<TextBlock Foreground="Red"
+                   Grid.Row="4"
+                   Name="lblDurationSeconds"
+                   VerticalAlignment="Center"
+                   FontSize="14">0</TextBlock>-->
+    </Grid>
+</UserControl>
